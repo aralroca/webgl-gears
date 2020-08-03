@@ -4,7 +4,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,21 +12,7 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  margin-bottom: 1rem;
-  animation: App-logo-spin infinite 1.6s ease-in-out alternate;
-}
-@keyframes App-logo-spin {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
+canvas {
+  margin-top: 20px;
+  border: 1px solid black;
 }
