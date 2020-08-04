@@ -1,12 +1,12 @@
 import { h } from 'preact';
-import useGears from './hooks/useGears'
-import './App.css'
+import useGears from './hooks/useGears';
+import './App.css';
 
-const WIDTH = 400
-const HEIGHT = 400
+const WIDTH = 400;
+const HEIGHT = 400;
 
 function App() {
-  const canvasRef = useGears()
+  const canvasRef = useGears();
 
   return (
     <div className="App">

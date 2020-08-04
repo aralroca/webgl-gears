@@ -8,8 +8,8 @@ export default function getCircleCoords(gl, centerX, centerY, radiusX) {
       centerY,
       centerX + radiusX * Math.cos(2 * Math.PI * (i / 360)),
       centerY + radiusY * Math.sin(2 * Math.PI * (i / 360)),
-    )
+    );
   }
 
-  return positions
+  return positions;
 }

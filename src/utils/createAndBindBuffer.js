@@ -1,4 +1,9 @@
-export default function createAndBindBuffer(gl, bufferType, typeOfDrawing, data) {
+export default function createAndBindBuffer(
+  gl,
+  bufferType,
+  typeOfDrawing,
+  data,
+) {
   const buffer = gl.createBuffer();
 
   gl.bindBuffer(bufferType, buffer);

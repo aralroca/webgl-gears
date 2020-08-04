@@ -9,8 +9,8 @@ export default function linkGPUAndCPU(
     dataType = gl.FLOAT,
     normalize = gl.FALSE,
     stride = 0,
-    offset = 0
-  }
+    offset = 0,
+  },
 ) {
   const position = gl.getAttribLocation(program, gpuVariable);
   gl.enableVertexAttribArray(position);
