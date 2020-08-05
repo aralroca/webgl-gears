@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import useGears from './hooks/useGears';
+import useGears from './useGears';
 import './App.css';
 
 const WIDTH = 400;
