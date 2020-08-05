@@ -8,6 +8,8 @@ import getGearTeeth from '../utils/getGearTeeth';
 import getProgram from '../utils/getProgram';
 import getShader from '../utils/getShader';
 import linkGPUAndCPU from '../utils/linkGPUAndCPU';
+import rotation from '../utils/rotation';
+import translation from '../utils/translation';
 
 // Shaders
 import vertexShader from './shader-vert';
@@ -79,7 +81,7 @@ const secondGear = [
 
 export default function useGears() {
   const canvasRef = useRef();
-  const webglVars = useRef({});
+  const webglVars = useRef({ angleGear1: 0, angleGear2: 0 });
 
   // Initialize Canvas
   useEffect(initializeCanvas, []);
@@ -89,10 +91,20 @@ export default function useGears() {
     const vs = getShader(gl, vertexShader, gl.VERTEX_SHADER);
     const fs = getShader(gl, fragmentShader, gl.FRAGMENT_SHADER);
     const program = getProgram(gl, vs, fs);
+    const rotationLocation = gl.getUniformLocation(program, 'u_rotation');
+    const translationLocation = gl.getUniformLocation(program, 'u_translation');
+    const moveOriginLocation = gl.getUniformLocation(program, 'u_moveOrigin');
 
-    webglVars.current = { gl, program };
+    webglVars.current = {
+      ...webglVars.current,
+      gl,
+      program,
+      rotationLocation,
+      translationLocation,
+      moveOriginLocation,
+    };
     drawGears();
-    interval = setInterval(rotateGears, 200);
+    interval = setInterval(rotateGears, 60);
 
     return () => clearInterval(interval);
   }
@@ -111,7 +123,25 @@ export default function useGears() {
 
   // Draw all shapes
   function drawGears() {
+    const {
+      gl,
+      angleGear1,
+      angleGear2,
+      moveOriginLocation,
+      rotationLocation,
+      translationLocation,
+    } = webglVars.current;
+
+    // First gear
+    gl.uniformMatrix3fv(translationLocation, false, translation(-0.3, -0.3));
+    gl.uniformMatrix3fv(rotationLocation, false, rotation(angleGear1));
+    gl.uniformMatrix3fv(moveOriginLocation, false, translation(0.3, 0.3));
     firstGear.forEach(renderCircle);
+
+    // Second gear
+    gl.uniformMatrix3fv(translationLocation, false, translation(0.23, 0.31));
+    gl.uniformMatrix3fv(rotationLocation, false, rotation(angleGear2));
+    gl.uniformMatrix3fv(moveOriginLocation, false, translation(-0.23, -0.31));
     secondGear.forEach(renderCircle);
   }
 
@@ -135,7 +165,10 @@ export default function useGears() {
   }
 
   function rotateGears() {
-    // @todo
+    const { angleGear1, angleGear2 } = webglVars.current;
+    webglVars.current.angleGear1 = (angleGear1 + 0.1) % 360;
+    webglVars.current.angleGear2 = (angleGear2 - 0.1) % 360;
+    drawGears();
   }
 
   return canvasRef;
