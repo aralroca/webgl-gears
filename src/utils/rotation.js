@@ -1,4 +1,4 @@
-export default function rotation(angleInRadians) {
+export default function rotation(angleInRadians = 0) {
   const c = Math.cos(angleInRadians);
   const s = Math.sin(angleInRadians);
 
