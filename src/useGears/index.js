@@ -2,9 +2,8 @@ import { useRef, useEffect } from 'preact/hooks';
 
 // Utils
 import createAndBindBuffer from '../utils/createAndBindBuffer';
-import getCircleCoords from '../utils/getCircleCoords';
+import getCoords from '../utils/getCoords';
 import getGLContext from '../utils/getGLContext';
-import getGearTeeth from '../utils/getGearTeeth';
 import getProgram from '../utils/getProgram';
 import getShader from '../utils/getShader';
 import linkGPUAndCPU from '../utils/linkGPUAndCPU';
@@ -53,13 +52,13 @@ export default function useGears() {
       numberOfTeeth,
     }) {
       const { TRIANGLE_STRIP, POINTS, TRIANGLES } = gl;
-      const coords = getCircleCoords(gl, center[0], center[1], radius);
+      const coords = getCoords(gl, center, radius);
 
       if (fillColor) drawShape(coords, fillColor, TRIANGLE_STRIP);
       if (strokeColor) drawShape(coords, strokeColor, POINTS);
       if (numberOfTeeth) {
         drawShape(
-          getGearTeeth(gl, center, radius, numberOfTeeth),
+          getCoords(gl, center, radius, numberOfTeeth),
           fillColor,
           TRIANGLES,
         );
@@ -75,17 +74,24 @@ export default function useGears() {
       gears.forEach((gear, index) => {
         const [centerX, centerY] = gear.center;
 
+        // u_translation
         gl.uniformMatrix3fv(
           translationLocation,
           false,
           translation(centerX, centerY),
         );
+
+        // u_rotation
         gl.uniformMatrix3fv(rotationLocation, false, rotation(angles[index]));
+
+        // u_moveOrigin
         gl.uniformMatrix3fv(
           moveOriginLocation,
           false,
           translation(-centerX, -centerY),
         );
+
+        // Render the gear + each gear piece
         renderGearPiece(gear);
         if (gear.children) gear.children.forEach(renderGearPiece);
       });

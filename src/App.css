@@ -1,9 +1,13 @@
+
+html, body {
+  background-color: hsl(220, 13%, 18%);
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #282c34;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,5 +18,6 @@
 
 canvas {
   margin-top: 20px;
+  background-color: white;
   border: 1px solid black;
 }

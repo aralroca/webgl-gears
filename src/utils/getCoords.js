@@ -1,10 +1,11 @@
-export default function getGearTeeth(gl, center, radiusX, teeth) {
-  const toothSize = 0.05;
+export default function getCoords(gl, center, radiusX, teeth = 0) {
+  const toothSize = teeth ? 0.05 : 0;
+  const step = teeth ? 360 / (teeth * 3) : 1;
   const [centerX, centerY] = center;
   const positions = [];
   const radiusY = (radiusX / gl.canvas.height) * gl.canvas.width;
 
-  for (let i = 0; i <= 360; i += 360 / (teeth * 3)) {
+  for (let i = 0; i <= 360; i += step) {
     positions.push(
       centerX,
       centerY,
