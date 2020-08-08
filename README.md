@@ -1,5 +1,20 @@
 # WebGL Gears
 
-Code for the second part of this [article](https://aralroca.com/blog/first-steps-in-webgl)
+Code used in the "How to draw gears in WebGL" [article](https://aralroca.com/blog/how-to-draw-gears-in-webgl) of my blog.
 
-🚧 **Under construction**.
+<img src="./gears.gif" alt="Gears in webgl" />
+
+## 📖 Tutorial
+
+* https://aralroca.com/blog/how-to-draw-gears-in-webgl
+
+## ☄️ DEMO:
+
+* https://webgl-gears.vercel.app/
+
+## Technologies used
+
+- WebGL (GLSL)
+- JavaScript
+- Preact
+- Snowpack
